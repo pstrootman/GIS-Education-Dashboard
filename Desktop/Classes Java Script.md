@@ -1,5 +1,5 @@
 {
-  "unitsTopics": {
+  "courses": {
     "AP": {
       "AP Art and Design (2-D, 3-D, Drawing)": [
         {
