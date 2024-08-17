@@ -2850,4 +2850,68 @@
       }
     ]
   }
-} 
+} const unitsTopics = {
+  "AP": {
+    "AP Art and Design (2-D, 3-D, Drawing)": [
+      {
+        "name": "Unit 1: Big Idea 1 Investigate Materials, Processes, and Ideas",
+        "topics": [
+          "What informs why, how, and what artists and designers make?"
+        ]
+      },
+      {
+        "name": "Unit 2: Big Idea 2 Make Art and Design",
+        "topics": [
+          "How do artists and designers make works of art and design?"
+        ]
+      },
+      {
+        "name": "Unit 3: Big Idea 3 Present Art and Design",
+        "topics": [
+          "Why and how do artists and designers present their work to viewers?"
+        ]
+      }
+    ],
+    // ... (other AP courses)
+  },
+  "IB": {
+    "Language A: Literature": [
+      {
+        "name": "Literary Analysis",
+        "topics": [
+          "Study of novels from various cultures and periods",
+          "Study of plays from various cultures and periods",
+          "Study of poetry from various cultures and periods"
+        ]
+      },
+      {
+        "name": "Comparative Studies",
+        "topics": [
+          "Study of novels from various cultures and periods",
+          "Study of plays from various cultures and periods",
+          "Study of poetry from various cultures and periods"
+        ]
+      }
+    ],
+    // ... (other IB courses)
+  },
+  "GCSE": {
+    "English Language": [
+      {
+        "name": "Unit 1: Explorations in Creative Reading and Writing",
+        "topics": [
+          "Narrative and descriptive writing",
+          "Analysis of unseen texts"
+        ]
+      },
+      {
+        "name": "Unit 2: Writers' Viewpoints and Perspectives",
+        "topics": [
+          "Writing to argue, persuade, and inform",
+          "Comparison of non-fiction texts"
+        ]
+      }
+    ],
+    // ... (other GCSE courses)
+  }
+};
