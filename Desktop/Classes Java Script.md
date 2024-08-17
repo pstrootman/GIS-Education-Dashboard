@@ -1,26 +1,26 @@
-  const unitsTopics = {
-            "AP": {
-    {
-    "AP Art and Design (2-D, 3-D, Drawing)": [
+{
+  "unitsTopics": {
+    "AP": {
+      "AP Art and Design (2-D, 3-D, Drawing)": [
         {
-            "name": "Unit 1: Big Idea 1 Investigate Materials, Processes, and Ideas",
-            "topics": [
-                "What informs why, how, and what artists and designers make?"
-            ]
+          "name": "Unit 1: Big Idea 1 Investigate Materials, Processes, and Ideas",
+          "topics": [
+            "What informs why, how, and what artists and designers make?"
+          ]
         },
         {
-            "name": "Unit 2: Big Idea 2 Make Art and Design",
-            "topics": [
-                "How do artists and designers make works of art and design?"
-            ]
+          "name": "Unit 2: Big Idea 2 Make Art and Design",
+          "topics": [
+            "How do artists and designers make works of art and design?"
+          ]
         },
         {
-            "name": "Unit 3: Big Idea 3 Present Art and Design",
-            "topics": [
-                "Why and how do artists and designers present their work to viewers?"
-            ]
+          "name": "Unit 3: Big Idea 3 Present Art and Design",
+          "topics": [
+            "Why and how do artists and designers present their work to viewers?"
+          ]
         }
-    ],
+      ],
     "AP Art History": [
         {
             "name": "Unit 1: Global Prehistory | 30,000–500 bce",
