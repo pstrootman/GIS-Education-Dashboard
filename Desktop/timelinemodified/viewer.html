@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timeline Viewer</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Viewer-specific base styles */
+        body.viewer-body { /* Added a class to body for more specific targeting */
+            background-color: #fff; 
+            padding: 15px; 
+            font-family: sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        /* Hide editor-specific sections if style.css is shared and these IDs exist */
+        body.viewer-body header, 
+        body.viewer-body footer, 
+        body.viewer-body #editTitleSection, 
+        body.viewer-body #addEventSection, 
+        body.viewer-body #timelineControls, 
+        body.viewer-body #currentEventsSection hr,
+        body.viewer-body #currentEventsSection h2 { /* Hide H2 from editor's event list */
+            display: none !important; 
+        }
+        body.viewer-body main {
+            width: 100%;
+            max-width: none;
+            margin: 0;
+            padding: 0;
+            box-shadow: none;
+            border: none; /* Remove border from main if style.css adds one */
+            background-color: transparent; /* Ensure no conflicting background */
+        }
+
+        #viewerTimelineTitle {
+            text-align: center;
+            font-size: 2em; /* Slightly larger title */
+            margin-bottom: 25px;
+            color: #333;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        #viewerEventDisplayContainer {
+            /* Styles for this container can be adjusted */
+        }
+        #viewerEventDisplayContainer ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        #viewerEventDisplayContainer li.event-item { /* Added class for styling */
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            padding: 15px 20px;
+            margin-bottom: 20px; /* More space between events */
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        #viewerEventDisplayContainer li.event-item strong.event-title { /* Class for title */
+            font-size: 1.3em;
+            color: #0056b3; /* A nice blue for titles */
+            display: block;
+            margin-bottom: 5px;
+        }
+        #viewerEventDisplayContainer li .event-details {
+            font-size: 0.95em;
+            color: #555;
+            margin-top: 5px;
+            margin-bottom: 10px;
+        }
+        #viewerEventDisplayContainer li .event-section-title { /* For Sources/Annotations/Multimedia H5 */
+            margin-top: 15px;
+            margin-bottom: 5px;
+            font-size: 1em;
+            font-weight: bold;
+            color: #444;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 3px;
+        }
+        #viewerEventDisplayContainer li .item-list { /* For sources/annotations lists */
+            list-style-type: disc;
+            padding-left: 25px; /* More indent */
+            font-size: 0.9em;
+            color: #333;
+        }
+        #viewerEventDisplayContainer li .item-list li { /* Style for items in sub-lists */
+            background-color: transparent;
+            border: none;
+            padding: 2px 0;
+            margin-bottom: 3px;
+            box-shadow: none;
+        }
+
+        /* Multimedia Display Styles */
+        .event-multimedia-item {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        .event-multimedia-item img {
+            max-width: 100%; /* Make images responsive */
+            height: auto;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            margin-bottom: 5px;
+        }
+        .youtube-embed-container {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+            margin-bottom: 5px;
+        }
+        .youtube-embed-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 4px;
+        }
+        .multimedia-caption-viewer {
+            font-size: 0.85em;
+            color: #666;
+            text-align: center;
+            display: block;
+            margin-top: 3px;
+        }
+    </style>
+</head>
+<body class="viewer-body"> {/* Added class to body */}
+    <main> {/* Added main tag to match editor structure for potential style reuse */}
+        <h1 id="viewerTimelineTitle">Loading Timeline...</h1>
+        <div id="viewerEventDisplayContainer">
+            <p>Please wait, loading event data...</p>
+        </div>
+    </main>
+    <script src="viewer.js"></script>
+</body>
+</html>
