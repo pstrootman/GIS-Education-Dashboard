@@ -1,0 +1,30 @@
+{
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
+  "hosting": {
+    "public": ".",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**",
+      "firebase-debug.log",
+      "*.md"
+    ],
+    "rewrites": [
+      {
+        "source": "/",
+        "destination": "/projects.html"
+      },
+      {
+        "source": "/timeline",
+        "destination": "/index.html"
+      },
+      {
+        "source": "/timeline/**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}

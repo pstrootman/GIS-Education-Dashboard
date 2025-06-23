@@ -1,0 +1,32 @@
+{
+  "timelineTitle": "Interactive Timeline",
+  "timelineDescription": "This is an interactive timeline application. Click 'Add Event' from the Timeline Tools menu to create your first event.",
+  "globalSettings": {
+    "defaultTheme": "modern"
+  },
+  "perspectives": [
+    {
+      "perspectiveId": "p1703093200000_main",
+      "perspectiveName": "Main Perspective",
+      "perspectiveColor": "#3498db",
+      "events": [
+        {
+          "id": "ev1703093200000_sample",
+          "title": "Sample Event",
+          "type": "point",
+          "startDate": "2024-01-01T12:00",
+          "endDate": null,
+          "description": "This is a sample event to demonstrate the timeline functionality. You can edit or delete this event and add your own.",
+          "eventColor": "#28a745",
+          "perspectiveIds": ["p1703093200000_main"],
+          "themeIds": [],
+          "multimedia": [],
+          "sources": [],
+          "annotations": [],
+          "location": {}
+        }
+      ]
+    }
+  ],
+  "themes": []
+}

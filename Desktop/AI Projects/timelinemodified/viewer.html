@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timeline Viewer</title>
+    
+    <!-- External CSS Libraries -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/vis-timeline@7.7.0/dist/vis-timeline-graph2d.min.css" rel="stylesheet">
+    
+    <!-- Application Styles -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Embed Mode Container -->
+    <div id="embed-container" class="embed-container" style="display: none;">
+        <div class="embed-header">
+            <h1 id="embed-title" class="embed-title">Loading Timeline...</h1>
+            <div class="embed-controls">
+                <div id="embed-perspective-controls" style="display: none;">
+                    <small style="margin-right: 8px; color: #666;">Perspectives:</small>
+                    <span id="embed-perspective-buttons"></span>
+                </div>
+                <div id="embed-theme-controls" style="display: none;">
+                    <small style="margin-right: 8px; color: #666;">Themes:</small>
+                    <span id="embed-theme-buttons"></span>
+                </div>
+            </div>
+        </div>
+        
+        <div id="embed-description-container" class="embed-description" style="display: none;">
+            <div class="embed-description-content">
+                <div id="embed-timeline-description"></div>
+            </div>
+        </div>
+        
+        <div class="embed-timeline-container">
+            <div id="embed-timeline"></div>
+        </div>
+    </div>
+
+    <!-- Presentation Mode Container -->
+    <div id="presentation-container" class="presentation-container" style="display: none;">
+        <div class="presentation-header">
+            <h1 id="presentation-title" class="presentation-title">Interactive Timeline</h1>
+            <div id="presentation-description" class="presentation-description"></div>
+            
+            <div class="presentation-controls mt-4">
+                <button id="presentation-fullscreen" class="btn btn-light btn-lg me-3">
+                    <i class="fas fa-expand"></i> Fullscreen
+                </button>
+                <button id="presentation-share" class="btn btn-outline-light btn-lg">
+                    <i class="fas fa-share"></i> Share
+                </button>
+            </div>
+        </div>
+        
+        <div class="presentation-body p-4">
+            <!-- Navigation Controls -->
+            <div class="presentation-navigation text-center mb-4">
+                <div class="btn-group" role="group">
+                    <button id="presentation-move-left" class="btn btn-outline-primary">
+                        <i class="fas fa-chevron-left"></i> Move Back
+                    </button>
+                    <button id="presentation-zoom-out" class="btn btn-outline-secondary">
+                        <i class="fas fa-search-minus"></i> Zoom Out
+                    </button>
+                    <button id="presentation-fit-all" class="btn btn-outline-secondary">
+                        <i class="fas fa-expand-arrows-alt"></i> Fit All
+                    </button>
+                    <button id="presentation-zoom-in" class="btn btn-outline-secondary">
+                        <i class="fas fa-search-plus"></i> Zoom In
+                    </button>
+                    <button id="presentation-move-right" class="btn btn-outline-primary">
+                        Move Forward <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Perspective and Theme Controls -->
+            <div class="presentation-filters mb-4">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div id="presentation-perspective-controls" style="display: none;">
+                            <h6><i class="fas fa-eye"></i> Perspectives</h6>
+                            <div id="presentation-perspective-buttons" class="d-flex flex-wrap gap-2"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div id="presentation-theme-controls" style="display: none;">
+                            <h6><i class="fas fa-palette"></i> Themes</h6>
+                            <div id="presentation-theme-buttons" class="d-flex flex-wrap gap-2"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Timeline Container -->
+            <div id="presentation-timeline"></div>
+        </div>
+    </div>
+
+    <!-- Standard Viewer Mode Container -->
+    <div id="viewer-container" class="container" style="display: none;">
+        <div class="text-center mb-4">
+            <h1 id="viewer-title" class="mb-3">Timeline Viewer</h1>
+            <div id="viewer-description" class="text-muted mb-4"></div>
+            
+            <!-- Back to Editor Button -->
+            <div class="mb-3">
+                <button id="back-to-editor" class="btn btn-primary me-2" style="display: none;">
+                    <i class="fas fa-edit"></i> Edit Timeline
+                </button>
+                <button id="viewer-fullscreen" class="btn btn-outline-secondary">
+                    <i class="fas fa-expand"></i> Fullscreen
+                </button>
+            </div>
+        </div>
+        
+        <!-- Navigation Controls -->
+        <div class="timeline-navigation text-center mb-3">
+            <button id="viewer-move-left" class="btn btn-outline-primary btn-sm">
+                <i class="fas fa-chevron-left"></i> Move Back
+            </button>
+            <button id="viewer-zoom-out" class="btn btn-outline-secondary btn-sm">
+                <i class="fas fa-search-minus"></i> Zoom Out
+            </button>
+            <button id="viewer-fit-all" class="btn btn-outline-secondary btn-sm">
+                <i class="fas fa-expand-arrows-alt"></i> Fit All
+            </button>
+            <button id="viewer-zoom-in" class="btn btn-outline-secondary btn-sm">
+                <i class="fas fa-search-plus"></i> Zoom In
+            </button>
+            <button id="viewer-move-right" class="btn btn-outline-primary btn-sm">
+                Move Forward <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+        
+        <!-- Filters -->
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <div id="viewer-perspective-controls" style="display: none;">
+                    <label class="form-label"><i class="fas fa-eye"></i> Filter by Perspective</label>
+                    <div id="viewer-perspective-buttons" class="d-flex flex-wrap gap-2"></div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div id="viewer-theme-controls" style="display: none;">
+                    <label class="form-label"><i class="fas fa-palette"></i> Filter by Theme</label>
+                    <div id="viewer-theme-buttons" class="d-flex flex-wrap gap-2"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Timeline Container -->
+        <div id="viewer-timeline"></div>
+    </div>
+
+    <!-- Loading Indicator -->
+    <div id="loading-indicator" class="loading-indicator">
+        <i class="fas fa-spinner fa-spin"></i>
+        <span style="margin-left: 10px;">Loading timeline data...</span>
+    </div>
+
+    <!-- Error Indicator -->
+    <div id="error-indicator" class="error-indicator" style="display: none;">
+        <i class="fas fa-exclamation-triangle" style="font-size: 2rem; margin-bottom: 10px;"></i>
+        <span>Failed to load timeline data</span>
+        <small style="margin-top: 5px; color: #666;">Please check your connection and try again</small>
+        <button onclick="location.reload()" class="btn btn-primary mt-3">
+            <i class="fas fa-refresh"></i> Retry
+        </button>
+    </div>
+
+    <!-- Share Modal -->
+    <div id="shareModal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-share"></i> Share Timeline
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="share-link" class="form-label">Direct Link</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="share-link" readonly>
+                            <button class="btn btn-outline-secondary" type="button" id="copy-link">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="embed-code" class="form-label">Embed Code</label>
+                        <div class="input-group">
+                            <textarea class="form-control" id="embed-code" rows="3" readonly></textarea>
+                            <button class="btn btn-outline-secondary" type="button" id="copy-embed">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                        </div>
+                        <small class="form-text text-muted">
+                            Use this code to embed the timeline in websites or ArcGIS StoryMaps.
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- External JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/vis-timeline@7.7.0/standalone/umd/vis-timeline-graph2d.min.js"></script>
+    
+    <!-- Firebase Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+    
+    <!-- Application Scripts -->
+    <script src="firebase-config.js"></script>
+    <script src="timeline-utils.js"></script>
+    <script src="timeline-core.js"></script>
+    <script src="timeline-viewer.js"></script>
+</body>
+</html>
