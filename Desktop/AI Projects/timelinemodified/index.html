@@ -388,5 +388,30 @@
     <script src="timeline-utils.js"></script>
     <script src="timeline-core.js"></script>
     <script src="timeline-editor.js"></script>
+    
+    <!-- Initialize Timeline Editor -->
+    <script>
+        // Initialize timeline editor when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if timeline is already initialized to prevent duplicates
+            if (window.timelineEditor && window.timelineEditor.initialized) {
+                console.log('🛑 Timeline already initialized, skipping duplicate initialization');
+                return;
+            }
+            
+            console.log('🚀 DOM Content Loaded, initializing Timeline Editor...');
+            try {
+                console.log('📝 Creating TimelineEditor instance...');
+                window.timelineEditor = new TimelineEditor();
+                console.log('✅ TimelineEditor instance created:', window.timelineEditor);
+                console.log('🎯 Calling timelineEditor.init()...');
+                window.timelineEditor.init();
+                console.log('✅ TimelineEditor.init() completed');
+            } catch (error) {
+                console.error('❌ Error initializing Timeline Editor:', error);
+                console.error('Stack trace:', error.stack);
+            }
+        });
+    </script>
 </body>
 </html>

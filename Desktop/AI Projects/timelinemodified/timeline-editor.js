@@ -12,11 +12,23 @@ class TimelineEditor extends TimelineCore {
 
     // Initialize the editor
     async init() {
+        // Prevent double initialization
+        if (this.initialized) {
+            console.log('🛑 Timeline already initialized, skipping');
+            return;
+        }
+        this.initialized = true;
+        
+        console.log('🔧 TimelineEditor.init() starting...');
+        console.log('📋 URL params:', this.params);
+        
         // Apply embed and readonly modes
+        console.log('🎨 Applying embed and readonly modes...');
         TimelineUtils.applyEmbedMode();
         TimelineUtils.applyReadonlyMode();
 
         // Set up Firebase ready callback
+        console.log('🔥 Setting up Firebase callbacks...');
         window.firebaseReady = () => {
             console.log('🔥 Firebase ready, loading timeline data');
             this.loadTimelineData();
@@ -27,24 +39,26 @@ class TimelineEditor extends TimelineCore {
             console.log('🔥 Firebase already ready, loading timeline data');
             this.loadTimelineData();
         } else {
-            console.log('⏳ Waiting for Firebase to be ready...');
-            // Fallback: try loading after a delay
-            setTimeout(() => {
-                if (!this.timelineData) {
-                    console.log('⚠️ Firebase not ready after timeout, attempting fallback load');
-                    this.loadTimelineData();
-                }
-            }, 3000);
+            console.log('⏳ Firebase not ready yet, callback set');
         }
 
+        // Check demo mode and parameters
+        console.log('🔍 Checking parameters - demo:', this.params.demo, 'id:', this.params.id, 'project:', this.params.project);
+        
         // Redirect to projects if no ID specified and not in demo mode
         if (!this.params.id && !this.params.project && !this.params.demo) {
-            console.log('No project specified, redirecting to projects dashboard');
+            console.log('❌ No project specified, redirecting to projects dashboard');
             window.location.href = 'projects.html';
             return;
         }
-
-        this.setupEventHandlers();
+        
+        // If in demo mode, load demo timeline immediately
+        if (this.params.demo) {
+            console.log('🎮 Demo mode detected, loading demo timeline');
+            this.showDefaultTimeline();
+        }
+        
+        console.log('✅ TimelineEditor.init() method completed');
     }
 
     // Load timeline data based on parameters
@@ -89,6 +103,7 @@ class TimelineEditor extends TimelineCore {
                 console.log('Project data loaded from Firestore');
 
                 this.timelineData = projectData.timelineData;
+                console.log('Timeline data from Firestore project:', this.timelineData); // ADDED LOG
                 this.currentProject = {
                     id: projectData.id,
                     name: projectData.name,
@@ -116,6 +131,7 @@ class TimelineEditor extends TimelineCore {
         if (savedData) {
             console.log("Data loaded from LocalStorage");
             this.timelineData = savedData;
+            console.log('Timeline data from LocalStorage:', this.timelineData); // ADDED LOG
             this.initializePage();
         } else {
             console.log("No data in LocalStorage, loading default");
@@ -133,11 +149,25 @@ class TimelineEditor extends TimelineCore {
                 perspectiveId: TimelineUtils.generateId(),
                 perspectiveName: "Main Perspective",
                 perspectiveColor: "#3498db",
-                events: []
+                events: [{
+                    id: TimelineUtils.generateId(),
+                    title: "Sample Event",
+                    type: "point",
+                    startDate: "2024-01-01T12:00",
+                    endDate: null,
+                    description: "This is a sample event to demonstrate the timeline functionality.",
+                    eventColor: "#28a745",
+                    perspectiveIds: [],
+                    themeIds: []
+                }]
             }],
             themes: []
         };
+        // Set perspectiveIds correctly
+        this.timelineData.perspectives[0].events[0].perspectiveIds = [this.timelineData.perspectives[0].perspectiveId];
+        
         this.initializePage();
+        console.log('Timeline data after showing default:', this.timelineData);
     }
 
     // Initialize the page after data is loaded
@@ -155,13 +185,23 @@ class TimelineEditor extends TimelineCore {
         this.applyTheme(this.params.theme || this.timelineData.globalSettings?.defaultTheme || 'modern');
 
         // Create timeline
+        console.log('Timeline data before creating timeline:', this.timelineData); // ADDED LOG
         this.createTimeline('timeline-container', {
             editable: !this.isReadonlyMode
         });
 
         // Setup perspectives and update display
         this.updatePerspectiveUI();
+        
+        // Set default active perspective if none is set
+        if (!this.activePerspective && this.timelineData.perspectives.length > 0) {
+            console.log('🎯 Setting default active perspective:', this.timelineData.perspectives[0].perspectiveId);
+            this.activePerspective = this.timelineData.perspectives[0].perspectiveId;
+        }
+        
+        console.log('About to call filterAndUpdateTimeline...');
         this.filterAndUpdateTimeline();
+        console.log('filterAndUpdateTimeline completed');
 
         // Set initial perspective if specified
         if (this.params.perspective) {
@@ -174,6 +214,14 @@ class TimelineEditor extends TimelineCore {
         } else if (this.params.date) {
             setTimeout(() => this.focusOnDate(this.params.date), 1000);
         }
+
+        // Setup event handlers AFTER data is loaded and page initialized
+        this.setupEventHandlers();
+
+        // Run diagnostic after everything is set up
+        setTimeout(() => {
+            this.diagnoseTimeline();
+        }, 500);
 
         console.log('Timeline editor initialized successfully');
     }
@@ -683,6 +731,7 @@ class TimelineEditor extends TimelineCore {
         }));
 
         this.visTimelineItems.clear();
+        console.log('Vis timeline items before adding:', itemsForVis); // ADDED LOG
         this.visTimelineItems.add(itemsForVis);
 
         if (this.preserveViewport && this.savedViewportState) {

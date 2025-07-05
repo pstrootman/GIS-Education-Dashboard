@@ -56,10 +56,9 @@
         </div>
 
         <!-- Projects Grid -->
-        <div id="projectsGrid" class="row" style="display: none;">
-            <!-- Create New Project Card -->
-            <div class="col-md-6 col-lg-4 mb-4">
-                <div class="card project-card create-project-card h-100" id="createProjectCard">
+        <div class="row mb-4">
+            <div class="col-md-6 col-lg-4">
+                <div class="card project-card create-project-card h-100" id="createNewTimelineButton">
                     <div class="project-thumbnail">
                         <i class="fas fa-plus"></i>
                     </div>
@@ -69,7 +68,10 @@
                     </div>
                 </div>
             </div>
-            
+        </div>
+
+        <!-- Projects Grid -->
+        <div id="projectsGrid" class="row" style="display: none;">
             <!-- Project cards will be dynamically added here -->
         </div>
 
@@ -97,20 +99,14 @@
             </div>
         </div>
 
-        <!-- Loading State -->
-        <div id="loadingState" class="text-center my-5">
-            <div class="spinner-border text-primary" role="status">
-                <span class="visually-hidden">Loading...</span>
-            </div>
-            <p class="mt-3 text-muted">Loading your projects...</p>
-        </div>
+        
 
         <!-- Empty State -->
         <div id="emptyState" class="text-center my-5" style="display: none;">
             <i class="fas fa-timeline fa-3x text-muted mb-3"></i>
             <h3 class="text-muted">No Timeline Projects Yet</h3>
             <p class="text-muted">Create your first interactive timeline to get started</p>
-            <button class="btn btn-primary btn-lg" onclick="document.getElementById('createProjectCard').click()">
+            <button class="btn btn-primary btn-lg" onclick="document.getElementById('createNewTimelineButton').click()">
                 <i class="fas fa-plus"></i> Create Your First Timeline
             </button>
         </div>

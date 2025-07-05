@@ -15,8 +15,8 @@ let auth;
 let currentUser = null;
 let firebaseInitialized = false;
 
-try {
-    if (typeof firebase !== 'undefined') {
+function initializeFirebaseApp() {
+    try {
         // Initialize Firebase app
         if (firebase.apps.length === 0) {
             firebase.initializeApp(firebaseConfig);
@@ -50,14 +50,26 @@ try {
             window.firebaseReady();
         }
         
-    } else {
-        throw new Error("Firebase SDK not available");
+        initializeAuthEventListeners(); // Initialize auth event listeners here
+
+    } catch (error) {
+        console.error("Firebase initialization error:", error);
+        firebaseInitialized = false;
+        showFirebaseError(error);
     }
-} catch (error) {
-    console.error("Firebase initialization error:", error);
-    firebaseInitialized = false;
-    showFirebaseError(error);
 }
+
+// Polling mechanism to wait for Firebase SDK to load
+function checkFirebaseSDK() {
+    if (typeof firebase !== 'undefined') {
+        initializeFirebaseApp();
+    } else {
+        setTimeout(checkFirebaseSDK, 100); // Check again after 100ms
+    }
+}
+
+// Start checking for Firebase SDK availability
+checkFirebaseSDK();
 
 // Helper function to check if Firebase is ready
 function isFirebaseReady() {

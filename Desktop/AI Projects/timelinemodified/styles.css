@@ -112,6 +112,7 @@ h1 {
     background: white;
     border-radius: var(--border-radius-lg);
     box-shadow: var(--box-shadow);
+    height: 500px;
     min-height: 400px;
     margin: 20px 0;
 }

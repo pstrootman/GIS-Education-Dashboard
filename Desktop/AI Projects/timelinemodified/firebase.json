@@ -8,9 +8,7 @@
     "ignore": [
       "firebase.json",
       "**/.*",
-      "**/node_modules/**",
-      "firebase-debug.log",
-      "*.md"
+      "**/node_modules/**"
     ],
     "rewrites": [
       {

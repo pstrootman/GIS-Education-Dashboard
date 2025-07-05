@@ -27,6 +27,12 @@ class ProjectsDashboard {
                 if (user) {
                     this.showUserInterface();
                     this.loadUserProjects();
+
+                    // Check if a new timeline creation was pending
+                    if (sessionStorage.getItem('pendingNewTimelineCreation') === 'true') {
+                        sessionStorage.removeItem('pendingNewTimelineCreation');
+                        this.showCreateProjectModal();
+                    }
                 } else {
                     this.showSignInPrompt();
                 }
@@ -54,11 +60,12 @@ class ProjectsDashboard {
             this.signOut();
         });
 
-        // Create Project Card
-        document.getElementById('createProjectCard')?.addEventListener('click', () => {
+        // Create New Timeline Button
+        document.getElementById('createNewTimelineButton')?.addEventListener('click', () => {
             if (this.currentUser) {
-                TimelineUtils.showModal('createProjectModal');
+                this.showCreateProjectModal();
             } else {
+                sessionStorage.setItem('pendingNewTimelineCreation', 'true');
                 TimelineUtils.showModal('authModal');
             }
         });
@@ -258,7 +265,7 @@ class ProjectsDashboard {
         document.getElementById('projectsGrid')?.style.setProperty('display', 'block');
 
         // Update user info
-        const userEmailSpan = document.getElementById('userEmail');
+        const userEmailSpan = document.getElementById('userEmailDisplay');
         if (userEmailSpan && this.currentUser) {
             userEmailSpan.textContent = this.currentUser.email;
         }
