@@ -55,7 +55,14 @@
 
         .days-label {
             font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 300;
+        }
+
+        .months-days-subtitle {
+            font-size: 1.1rem;
             margin-bottom: 1rem;
+            opacity: 0.8;
             font-weight: 300;
         }
 
@@ -87,6 +94,10 @@
             .date-reference {
                 font-size: 1rem;
             }
+            
+            .months-days-subtitle {
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
@@ -96,6 +107,7 @@
         <div class="date-reference">April 27, 2025</div>
         <div class="counter" id="dayCounter">0</div>
         <div class="days-label">Days</div>
+        <div class="months-days-subtitle" id="monthsDaysSubtitle"></div>
         <div class="milestone hidden" id="milestone"></div>
     </div>
 
@@ -113,12 +125,43 @@
             return daysDifference;
         }
 
+        function calculateMonthsAndDays() {
+            const targetDate = new Date('2025-04-27');
+            const currentDate = new Date();
+            
+            let years = currentDate.getFullYear() - targetDate.getFullYear();
+            let months = currentDate.getMonth() - targetDate.getMonth();
+            let days = currentDate.getDate() - targetDate.getDate();
+            
+            if (days < 0) {
+                months--;
+                const prevMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0);
+                days += prevMonth.getDate();
+            }
+            
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+            
+            const totalMonths = years * 12 + months;
+            return { totalMonths, days };
+        }
+
         function updateCounter() {
             const days = calculateDaysSince();
+            const { totalMonths, days: remainingDays } = calculateMonthsAndDays();
             const counterElement = document.getElementById('dayCounter');
+            const monthsDaysElement = document.getElementById('monthsDaysSubtitle');
             const milestoneElement = document.getElementById('milestone');
             
             counterElement.textContent = days;
+            
+            if (totalMonths > 0) {
+                monthsDaysElement.textContent = `${totalMonths} month${totalMonths !== 1 ? 's' : ''} and ${remainingDays} day${remainingDays !== 1 ? 's' : ''}`;
+            } else {
+                monthsDaysElement.textContent = `${remainingDays} day${remainingDays !== 1 ? 's' : ''}`;
+            }
             
             // Show milestones for special numbers
             if (days % 100 === 0 && days > 0) {
