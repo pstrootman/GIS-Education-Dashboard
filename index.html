@@ -3,191 +3,844 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Days Since April 27, 2025</title>
+    <title>EdGeoInnovations | GIS Education Dashboard</title>
     <style>
+        /* ============================================
+           EdGeoInnovations Brand Color Palette
+           ============================================
+           PRIMARY COLORS:
+           - Deep Ocean Blue: #002244 (headers, primary branding)
+           - Turquoise Waters: #00C5CD (interactive elements, buttons)
+           - Sunset Orange: #FF6600 (accents, CTAs, highlights)
+           - Golden Sun: #FFD700 (premium accents, special highlights)
+
+           SECONDARY COLORS:
+           - Pure White: #FFFFFF (backgrounds, text on dark)
+           - Soft Gray: #F5F5F5 (subtle divisions, card backgrounds)
+           - Warm Charcoal: #333333 (body text, footer)
+           ============================================ */
+
         * {
-            margin: 0;
-            padding: 0;
             box-sizing: border-box;
         }
 
         body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            /* EdGeo Brand: Soft Gray background for subtle elegance */
+            background-color: #F5F5F5;
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        }
+
+        header {
+            /* EdGeo Brand: Deep Ocean Blue - primary branding color */
+            background-color: #002244;
+            color: #FFFFFF;
+            padding: 25px 0;
             text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 34, 68, 0.3);
         }
 
-        .container {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 3rem 2rem;
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            max-width: 600px;
-            width: 90%;
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 600;
+            /* Pure White for maximum contrast on Deep Ocean Blue */
+            color: #FFFFFF;
         }
 
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            font-weight: 300;
-            letter-spacing: 2px;
+        header p {
+            margin: 10px 0 0;
+            font-size: 1.1em;
+            /* Turquoise Waters for subheading */
+            color: #00C5CD;
         }
 
-        .date-reference {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            opacity: 0.8;
+        .info-banner {
+            /* Pure White background with Turquoise border */
+            background-color: #FFFFFF;
+            padding: 15px;
+            text-align: center;
+            font-size: 0.95em;
+            color: #333333;
+            border-bottom: 3px solid #00C5CD;
         }
 
-        .counter {
-            font-size: 4rem;
-            font-weight: bold;
-            margin: 2rem 0;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        .info-banner strong {
+            /* Sunset Orange for emphasis */
+            color: #FF6600;
         }
 
-        .days-label {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-            font-weight: 300;
+        main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px 20px 100px;
         }
 
-        .months-days-subtitle {
-            font-size: 1.1rem;
-            margin-bottom: 1rem;
-            opacity: 0.8;
-            font-weight: 300;
+        .card {
+            /* EdGeo Brand: Pure White cards for clean, professional look */
+            background-color: #FFFFFF;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            /* Subtle shadow with Deep Ocean Blue tint */
+            box-shadow: 0 4px 12px rgba(0, 34, 68, 0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            /* Turquoise Waters subtle border for definition */
+            border: 1px solid rgba(0, 197, 205, 0.1);
         }
 
-        .milestone {
-            margin-top: 2rem;
-            padding: 1rem;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            font-size: 1.1rem;
+        .card:hover {
+            transform: translateY(-2px);
+            /* Enhanced shadow on hover with Turquoise tint */
+            box-shadow: 0 6px 16px rgba(0, 197, 205, 0.15);
+            border-color: rgba(0, 197, 205, 0.3);
         }
 
-        .milestone.hidden {
+        .section-title {
+            font-size: 1.5em;
+            font-weight: 600;
+            /* EdGeo Brand: Deep Ocean Blue for section headers */
+            color: #002244;
+            margin: 0 0 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 24px;
+            /* EdGeo Brand: Turquoise Waters accent bar */
+            background-color: #00C5CD;
+            border-radius: 2px;
+        }
+
+        .dropdown {
+            margin: 0;
+        }
+
+        .dropdown select {
+            width: 100%;
+            padding: 14px;
+            font-size: 16px;
+            /* EdGeo Brand: Turquoise Waters border */
+            border: 2px solid #00C5CD;
+            border-radius: 8px;
+            background-color: #FFFFFF;
+            /* Warm Charcoal text */
+            color: #333333;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dropdown select:hover {
+            /* EdGeo Brand: Sunset Orange on hover for engagement */
+            border-color: #FF6600;
+            box-shadow: 0 2px 8px rgba(255, 102, 0, 0.1);
+        }
+
+        .dropdown select:focus {
+            outline: none;
+            /* EdGeo Brand: Deep Ocean Blue focus state */
+            border-color: #002244;
+            box-shadow: 0 0 0 3px rgba(0, 197, 205, 0.2);
+        }
+
+        .dropdown select:disabled {
+            background-color: #F5F5F5;
+            cursor: not-allowed;
+            opacity: 0.6;
+            border-color: #e0e0e0;
+        }
+
+        /* ============================================
+           DROPDOWN VISUAL HIERARCHY - EdGeoInnovations
+           Category Headers (bold, brand colors) > Course Names (charcoal)
+           ============================================ */
+
+        /* Category Headers - Bold and Prominent */
+        .category-header {
+            font-weight: 700 !important;
+            font-size: 15px !important;
+            padding-top: 12px !important;
+            padding-bottom: 4px !important;
+            letter-spacing: 0.5px;
+        }
+
+        /* AP Program - Deep Ocean Blue for authority and professionalism */
+        .category-ap {
+            color: #002244 !important;
+            background-color: rgba(0, 34, 68, 0.05) !important;
+        }
+
+        /* IB Program - Darker Turquoise for international accessibility (WCAG AA compliant) */
+        .category-ib {
+            color: #008B9C !important;
+            background-color: rgba(0, 139, 156, 0.05) !important;
+        }
+
+        /* GCSE Program - Deep Ocean Blue for British tradition and authority */
+        .category-gcse {
+            color: #002244 !important;
+            background-color: rgba(0, 34, 68, 0.05) !important;
+        }
+
+        /* Course Options - Readable secondary text */
+        .course-option {
+            color: #333333 !important;
+            font-weight: 400 !important;
+            padding-left: 24px !important;
+            font-size: 14px !important;
+        }
+
+        /* High GIS Integration Courses - Darker Orange accent (WCAG AA compliant) */
+        .course-option.high-gis {
+            font-weight: 600 !important;
+            color: #B84800 !important;
+            border-left: 3px solid #B84800 !important;
+            padding-left: 21px !important;
+        }
+
+        /* Medium GIS Integration Courses - Subtle Turquoise accent */
+        .course-option.medium-gis {
+            font-weight: 500 !important;
+            color: #006B75 !important;
+            border-left: 2px solid #00C5CD !important;
+            padding-left: 22px !important;
+        }
+
+        /* Hover states for course options */
+        .course-option:hover {
+            background-color: rgba(0, 197, 205, 0.08) !important;
+        }
+
+        .course-option.high-gis:hover {
+            background-color: rgba(255, 102, 0, 0.08) !important;
+        }
+
+        .course-option.medium-gis:hover {
+            background-color: rgba(0, 197, 205, 0.12) !important;
+        }
+
+        /* Selected state emphasis */
+        select option:checked {
+            background-color: #00C5CD !important;
+            color: #FFFFFF !important;
+            font-weight: 600 !important;
+        }
+
+        /* Accessibility: Ensure focus states are visible */
+        select option:focus {
+            outline: 2px solid #002244;
+            outline-offset: -2px;
+        }
+
+        /* Premium subjects indicator (for GCSE Geology, specialized courses) */
+        .course-option.premium {
+            border-left: 2px solid #FFD700 !important;
+        }
+
+        .data-variables {
             display: none;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .data-variables .section-title {
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        .data-variables label {
+            flex: 1 1 calc(25% - 10px);
+            min-width: 200px;
+            padding: 12px;
+            /* EdGeo Brand: Soft Gray background */
+            background-color: #F5F5F5;
+            /* Turquoise Waters border */
+            border: 2px solid #00C5CD;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .data-variables label:hover {
+            /* Pure White on hover with Sunset Orange border */
+            background-color: #FFFFFF;
+            border-color: #FF6600;
+            box-shadow: 0 2px 8px rgba(255, 102, 0, 0.1);
+        }
+
+        .data-variables input[type="checkbox"]:checked + span {
+            font-weight: 600;
+            /* EdGeo Brand: Deep Ocean Blue for checked state */
+            color: #002244;
+        }
+
+        .data-variables label input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: #00C5CD; /* Turquoise Waters for checkbox */
+        }
+
+        .unit-container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 0;
+        }
+
+        .unit {
+            flex: 1 1 calc(33.333% - 20px);
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .unit strong {
+            font-size: 1.1em;
+            /* EdGeo Brand: Deep Ocean Blue for unit headers */
+            color: #002244;
+            padding: 10px 0;
+            /* Turquoise Waters underline */
+            border-bottom: 2px solid #00C5CD;
+            margin-bottom: 5px;
+        }
+
+        .unit label {
+            padding: 8px 12px;
+            /* EdGeo Brand: Soft Gray background */
+            background-color: #F5F5F5;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            line-height: 1.4;
+            border: 1px solid transparent;
+        }
+
+        .unit label:hover {
+            /* Pure White background with Turquoise border on hover */
+            background-color: #FFFFFF;
+            border-color: #00C5CD;
+            transform: translateX(4px);
+            box-shadow: 0 2px 6px rgba(0, 197, 205, 0.1);
+        }
+
+        .unit input[type="checkbox"] {
+            margin-top: 3px;
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+            flex-shrink: 0;
+            accent-color: #00C5CD; /* Turquoise Waters for checkbox */
+        }
+
+        .fixed-bottom {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 16px 40px;
+            /* EdGeo Brand: Sunset Orange for primary CTA button */
+            background: linear-gradient(135deg, #FF6600 0%, #FF8833 100%);
+            color: #FFFFFF;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            /* Sunset Orange shadow for emphasis */
+            box-shadow: 0 6px 20px rgba(255, 102, 0, 0.4);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            /* Optional: Add Golden Sun accent border for premium feel */
+            outline: 2px solid transparent;
+        }
+
+        .fixed-bottom:hover {
+            transform: translateX(-50%) translateY(-3px);
+            /* Enhanced Sunset Orange shadow on hover */
+            box-shadow: 0 8px 25px rgba(255, 102, 0, 0.5);
+            /* Optional: Golden Sun outline on hover for premium feel */
+            outline-color: #FFD700;
+            background: linear-gradient(135deg, #FF7722 0%, #FF9944 100%);
+        }
+
+        .fixed-bottom:active {
+            transform: translateX(-50%) translateY(-1px);
+            box-shadow: 0 4px 15px rgba(255, 102, 0, 0.6);
+        }
+
+        .legend {
+            /* EdGeo Brand: Soft yellow background with Sunset Orange border */
+            background-color: #FFF9E6;
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            /* Golden Sun left border for importance */
+            border-left: 4px solid #FFD700;
+            font-size: 0.95em;
+            /* Warm Charcoal text */
+            color: #333333;
+        }
+
+        .legend strong {
+            /* EdGeo Brand: Deep Ocean Blue for emphasis */
+            color: #002244;
         }
 
         @media (max-width: 768px) {
-            .container {
-                padding: 2rem 1rem;
+            .unit {
+                flex: 1 1 100%;
             }
-            
-            h1 {
-                font-size: 2rem;
+
+            .data-variables label {
+                flex: 1 1 100%;
             }
-            
-            .counter {
-                font-size: 3rem;
-            }
-            
-            .date-reference {
-                font-size: 1rem;
-            }
-            
-            .months-days-subtitle {
-                font-size: 1rem;
+
+            header h1 {
+                font-size: 1.8em;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Days Since</h1>
-        <div class="date-reference">April 27, 2025</div>
-        <div class="counter" id="dayCounter">0</div>
-        <div class="days-label">Days</div>
-        <div class="months-days-subtitle" id="monthsDaysSubtitle"></div>
-        <div class="milestone hidden" id="milestone"></div>
+    <header>
+        <h1>EdGeoInnovations | GIS Education Dashboard</h1>
+        <p>Curriculum-Ready Geospatial Data for UAE & MENA Education</p>
+    </header>
+    <div class="info-banner">
+        <strong>83 Courses Available</strong> (35 AP, 33 IB, 15 GCSE) | <span style="color: #FF6600;">★ High GIS Integration Potential</span> | Aligned with UAE & MENA regional contexts
     </div>
+    <main>
+        <div class="legend">
+            <strong>For Educators:</strong> Select your diploma program and course to access pre-made, curriculum-aligned GIS materials.<br>
+            <strong>For Students:</strong> Choose topics and data variables to download customized geospatial datasets relevant to your studies.
+        </div>
 
+        <div class="card">
+            <div class="section-title">Select Diploma Program</div>
+            <div class="dropdown">
+                <select id="diploma-program">
+                    <option value="" disabled selected>Select Diploma Program</option>
+                    <option value="ap">Advanced Placement (AP)</option>
+                    <option value="ib">International Baccalaureate (IB)</option>
+                    <option value="gcse">General Certificate of Secondary Education (GCSE)</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="section-title">Select Course</div>
+            <div class="dropdown">
+                <select id="course-list" disabled>
+                    <option value="" disabled selected>First select a diploma program above</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="card" id="unit-card" style="display: none;">
+            <div class="section-title">Course Units & Topics</div>
+            <div id="unit-container" class="unit-container"></div>
+        </div>
+
+        <div class="card">
+            <div class="data-variables" id="data-variables">
+                <div class="section-title">Select Data Variables</div>
+                <label><input type="checkbox" value="country"><span>Country</span></label>
+                <label><input type="checkbox" value="population"><span>Population</span></label>
+                <label><input type="checkbox" value="income"><span>Income</span></label>
+                <label><input type="checkbox" value="age"><span>Age</span></label>
+                <label><input type="checkbox" value="households"><span>Households</span></label>
+                <label><input type="checkbox" value="housing"><span>Housing</span></label>
+                <label><input type="checkbox" value="education"><span>Education</span></label>
+                <label><input type="checkbox" value="business"><span>Business</span></label>
+                <label><input type="checkbox" value="retail"><span>Retail</span></label>
+                <label><input type="checkbox" value="retail-centrality"><span>Retail and Centrality</span></label>
+                <label><input type="checkbox" value="spending"><span>Spending</span></label>
+                <label><input type="checkbox" value="behaviors"><span>Behaviors</span></label>
+                <label><input type="checkbox" value="jobs"><span>Jobs</span></label>
+                <label><input type="checkbox" value="marital-status"><span>Marital Status</span></label>
+                <label><input type="checkbox" value="key-facts"><span>Key Facts</span></label>
+            </div>
+        </div>
+
+        <button id="download-data" class="fixed-bottom">Download GIS Data Package</button>
+    </main>
+    <script src="dashboard.js"></script>
     <script>
-        function calculateDaysSince() {
-            const targetDate = new Date('2025-04-27');
-            const currentDate = new Date();
-            
-            // Calculate the difference in time
-            const timeDifference = currentDate.getTime() - targetDate.getTime();
-            
-            // Convert time difference from milliseconds to days
-            const daysDifference = Math.floor(timeDifference / (1000 * 3600 * 24));
-            
-            return daysDifference;
+// Enhanced UI interactions
+document.addEventListener('DOMContentLoaded', function() {
+    // Show/hide unit card when units are displayed
+    const originalDisplayUnits = displayUnits;
+    displayUnits = function(courseData) {
+        originalDisplayUnits(courseData);
+        const unitCard = document.getElementById('unit-card');
+        if (unitCard) {
+            unitCard.style.display = 'block';
         }
+    };
 
-        function calculateMonthsAndDays() {
-            const targetDate = new Date('2025-04-27');
-            const currentDate = new Date();
-            
-            let years = currentDate.getFullYear() - targetDate.getFullYear();
-            let months = currentDate.getMonth() - targetDate.getMonth();
-            let days = currentDate.getDate() - targetDate.getDate();
-            
-            if (days < 0) {
-                months--;
-                const prevMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0);
-                days += prevMonth.getDate();
-            }
-            
-            if (months < 0) {
-                years--;
-                months += 12;
-            }
-            
-            const totalMonths = years * 12 + months;
-            return { totalMonths, days };
+    // Handle program change to hide units
+    diplomaProgramSelect.addEventListener('change', function() {
+        const unitCard = document.getElementById('unit-card');
+        if (unitCard) {
+            unitCard.style.display = 'none';
         }
+    });
+});
 
-        function updateCounter() {
-            const days = calculateDaysSince();
-            const { totalMonths, days: remainingDays } = calculateMonthsAndDays();
-            const counterElement = document.getElementById('dayCounter');
-            const monthsDaysElement = document.getElementById('monthsDaysSubtitle');
-            const milestoneElement = document.getElementById('milestone');
-            
-            counterElement.textContent = days;
-            
-            if (totalMonths > 0) {
-                monthsDaysElement.textContent = `${totalMonths} month${totalMonths !== 1 ? 's' : ''} and ${remainingDays} day${remainingDays !== 1 ? 's' : ''}`;
+// OLD CODE BELOW - KEPT FOR REFERENCE ONLY - REPLACED BY dashboard.js
+/*
+        document.getElementById('diploma-program').addEventListener('change', function() {
+            const program = this.value;
+            const courseList = document.getElementById('course-list');
+            const unitContainer = document.getElementById('unit-container');
+            courseList.disabled = false;
+            courseList.innerHTML = '<option value="" disabled selected>Select Course</option>';
+            unitContainer.innerHTML = ''; // Clear any existing unit content
+
+            if (program === 'ib') {
+                courseList.innerHTML += `
+                    <option disabled><b>Studies in Language and Literature</b></option>
+                    <option value="la_lit">Language A: Literature</option>
+                    <option value="la_langlit">Language A: Language and Literature</option>
+                    <option value="lit_perf">Literature and Performance (interdisciplinary subject with Group 6)</option>
+                    <option disabled><b>Language Acquisition</b></option>
+                    <option value="lang_b">Language B (various languages)</option>
+                    <option value="lang_ab">Language ab initio (various languages)</option>
+                    <option value="classical_lang">Classical Languages (Latin, Classical Greek)</option>
+                    <option disabled><b>Individuals and Societies</b></option>
+                    <option value="business_management">Business Management</option>
+                    <option value="economics">Economics</option>
+                    <option value="geography">Geography</option>
+                    <option value="global_politics">Global Politics</option>
+                    <option value="history">History</option>
+                    <option value="itgs">Information Technology in a Global Society (ITGS)</option>
+                    <option value="philosophy">Philosophy</option>
+                    <option value="psychology">Psychology</option>
+                    <option value="anthropology">Social and Cultural Anthropology</option>
+                    <option value="world_religions">World Religions</option>
+                    <option disabled><b>Sciences</b></option>
+                    <option value="biology">Biology</option>
+                    <option value="chemistry">Chemistry</option>
+                    <option value="physics">Physics</option>
+                    <option value="computer_science">Computer Science</option>
+                    <option value="design_technology">Design Technology</option>
+                    <option value="ess">Environmental Systems and Societies (interdisciplinary subject with Group 3)</option>
+                    <option value="sports_science">Sports, Exercise and Health Science</option>
+                    <option disabled><b>Mathematics</b></option>
+                    <option value="math_analysis">Mathematics: Analysis and Approaches</option>
+                    <option value="math_applications">Mathematics: Applications and Interpretation</option>
+                    <option disabled><b>The Arts</b></option>
+                    <option value="dance">Dance</option>
+                    <option value="film">Film</option>
+                    <option value="music">Music</option>
+                    <option value="theatre">Theatre</option>
+                    <option value="visual_arts">Visual Arts</option>
+                    <option value="lit_perf_art">Literature and Performance (interdisciplinary subject with Group 1)</option>
+                    <option disabled><b>Interdisciplinary Subjects</b></option>
+                    <option value="ess_inter">Environmental Systems and Societies (Group 3 and Group 4)</option>
+                    <option value="lit_perf_inter">Literature and Performance (Group 1 and Group 6)</option>
+                `;
+            } else if (program === 'ap') {
+                courseList.innerHTML += `
+                    <option disabled><b>Arts</b></option>
+                    <option value="ap_art_design">AP Art and Design (2-D Art and Design, 3-D Art and Design, Drawing)</option>
+                    <option value="ap_art_history">AP Art History</option>
+                    <option value="ap_music_theory">AP Music Theory</option>
+                    <option disabled><b>English</b></option>
+                    <option value="ap_eng_lang">AP English Language and Composition</option>
+                    <option value="ap_eng_lit">AP English Literature and Composition</option>
+                    <option disabled><b>History and Social Sciences</b></option>
+                    <option value="ap_comp_gov">AP Comparative Government and Politics</option>
+                    <option value="ap_euro_hist">AP European History</option>
+                    <option value="ap_human_geo">AP Human Geography</option>
+                    <option value="ap_macro">AP Macroeconomics</option>
+                    <option value="ap_micro">AP Microeconomics</option>
+                    <option value="ap_psych">AP Psychology</option>
+                    <option value="ap_us_gov">AP United States Government and Politics</option>
+                    <option value="ap_us_hist">AP United States History</option>
+                    <option value="ap_world_hist">AP World History: Modern</option>
+                    <option disabled><b>Math and Computer Science</b></option>
+                    <option value="ap_calc_ab">AP Calculus AB</option>
+                    <option value="ap_calc_bc"> AP Calculus BC</option>
+                    <option value="ap_cs_a">AP Computer Science A</option>
+                    <option value="ap_cs_principles">AP Computer Science Principles</option>
+                    <option value="ap_stats">AP Statistics</option>
+                    <option disabled><b>Sciences</b></option>
+                    <option value="ap_bio">AP Biology</option>
+                    <option value="ap_chem">AP Chemistry</option>
+                    <option value="ap_env_sci">AP Environmental Science</option>
+                    <option value="ap_phys_1">AP Physics 1: Algebra-Based</option>
+                    <option value="ap_phys_2">AP Physics 2: Algebra-Based</option>
+                    <option value="ap_phys_c_mech">AP Physics C: Mechanics</option>
+                    <option value="ap_phys_c_e_m">AP Physics C: Electricity and Magnetism</option>
+                    <option disabled><b>World Languages and Cultures</b></option>
+                    <option value="ap_chinese">AP Chinese Language and Culture</option>
+                    <option value="ap_french">AP French Language and Culture</option>
+                    <option value="ap_german">AP German Language and Culture</option>
+                    <option value="ap_italian">AP Italian Language and Culture</option>
+                    <option value="ap_japanese">AP Japanese Language and Culture</option>
+                    <option value="ap_lat">AP Latin</option>
+                    <option value="ap_spanish_lang">AP Spanish Language and Culture</option>
+                    <option value="ap_spanish_lit">AP Spanish Literature and Culture</option>
+                `;
+            } else if (program === 'gcse') {
+                courseList.innerHTML += `
+                    <option disabled><b>Core Subjects</b></option>
+                    <option value="english_lang">English Language</option>
+                    <option value="english_lit">English Literature</option>
+                    <option value="math">Mathematics</option>
+                    <option value="science">Science</option>
+                    <option value="combined_sci">Combined Science (Double Award)</option>
+                    <option value="separate_sci">Separate Sciences: Biology, Chemistry, Physics</option>
+                    <option disabled><b>Humanities</b></option>
+                    <option value="geography">Geography</option>
+                    <option value="history">History</option>
+                    <option value="religious_studies">Religious Studies</option>
+                    <option disabled><b>Languages</b></option>
+                    <option value="french">French</option>
+                    <option value="spanish">Spanish</option>
+                    <option value="german">German</option>
+                    <option value="italian">Italian</option>
+                    <option value="chinese">Chinese</option>
+                    <option value="latin">Latin</option>
+                    <option value="classical_greek">Classical Greek</option>
+                    <option disabled><b>Arts</b></option>
+                    <option value="art_design">Art and Design</option>
+                    <option value="music">Music</option>
+                    <option value="drama">Drama</option>
+                    <option value="dance">Dance</option>
+                    <option disabled><b>Technology and Vocational Subjects</b></option>
+                    <option value="design_tech">Design and Technology</option>
+                    <option value="food_tech">Food Technology</option>
+                    <option value="ict">Information and Communication Technology (ICT)</option>
+                    <option value="computer_sci">Computer Science</option>
+                    <option disabled><b>Physical Education</b></option>
+                    <option value="pe">Physical Education (PE)</option>
+                    <option disabled><b>Social Sciences</b></option>
+                    <option value="sociology">Sociology</option>
+                    <option value="psychology">Psychology</option>
+                    <option value="business_studies">Business Studies</option>
+                    <option value="economics">Economics</option>
+                    <option disabled><b>Other Subjects</b></option>
+                    <option value="citizenship_studies">Citizenship Studies</option>
+                    <option value="media_studies">Media Studies</option>
+                    <option value="statistics">Statistics</option>
+                    <option value="health_social_care">Health and Social Care</option>
+                `;
+            }
+        });
+
+        document.getElementById('course-list').addEventListener('change', function() {
+            const course = this.value;
+            const unitContainer = document.getElementById('unit-container');
+
+            if (course === 'ap_human_geo') {
+                unitContainer.innerHTML = `
+                    <div class="unit">
+                        <strong>Unit 1: Thinking Geographically</strong>
+                        <label><input type="checkbox" value="1.1"> 1.1 Introduction to Maps</label>
+                        <label><input type="checkbox" value="1.2"> 1.2 Geographic Data</label>
+                        <label><input type="checkbox" value="1.3"> 1.3 The Power of Geographic Data</label>
+                        <label><input type="checkbox" value="1.4"> 1.4 Spatial Concepts</label>
+                        <label><input type="checkbox" value="1.5"> 1.5 Human-Environmental Interaction</label>
+                        <label><input type="checkbox" value="1.6"> 1.6 Scales of Analysis</label>
+                        <label><input type="checkbox" value="1.7"> 1.7 Regional Analysis</label>
+                        <br>
+                        <strong>Unit 2: Population and Migration Patterns and Processes</strong>
+                        <label><input type="checkbox" value="2.1"> 2.1 Population Distribution</label>
+                        <label><input type="checkbox" value="2.2"> 2.2 Consequences of Population Distribution</label>
+                        <label><input type="checkbox" value="2.3"> 2.3 Population Composition</label>
+                        <label><input type="checkbox" value="2.4"> 2.4 Population Dynamics</label>
+                        <label><input type="checkbox" value="2.5"> 2.5 The Demographic Transition Model</label>
+                        <label><input type="checkbox" value="2.6"> 2.6 Malthusian Theory</label>
+                        <label><input type="checkbox" value="2.7"> 2.7 Population Policies</label>
+                        <label><input type="checkbox" value="2.8"> 2.8 Women and Demographic Change</label>
+                        <label><input type="checkbox" value="2.9"> 2.9 Aging Populations</label>
+                        <label><input type="checkbox" value="2.10"> 2.10 Causes of Migration</label>
+                        <label><input type="checkbox" value="2.11"> 2.11 Forced and Voluntary Migration</label>
+                        <label><input type="checkbox" value="2.12"> 2.12 Effects of Migration</label>
+                    </div>
+                    <div class="unit">
+                        <strong>Unit 3: Cultural Patterns and Processes</strong>
+                        <label><input type="checkbox" value="3.1"> 3.1 Introduction to Culture</label>
+                        <label><input type="checkbox" value="3.2"> 3.2 Cultural Landscapes</label>
+                        <label><input type="checkbox" value="3.3"> 3.3 Cultural Patterns</label>
+                        <label><input type="checkbox" value="3.4"> 3.4 Types of Diffusion</label>
+                        <label><input type="checkbox" value="3.5"> 3.5 Historical Causes of Diffusion</label>
+                        <label><input type="checkbox" value="3.6"> 3.6 Contemporary Causes of Diffusion</label>
+                        <label><input type="checkbox" value="3.7"> 3.7 Diffusion of Religion and Language</label>
+                        <label><input type="checkbox" value="3.8"> 3.8 Effects of Diffusion</label>
+                        <br>
+                        <strong>Unit 4: Political Patterns and Processes</strong>
+                        <label><input type="checkbox" value="4.1"> 4.1 Introduction to Political Geography</label>
+                        <label><input type="checkbox" value="4.2"> 4.2 Political Processes</label>
+                        <label><input type="checkbox" value="4.3"> 4.3 Political Power and Territoriality</label>
+                        <label><input type="checkbox" value="4.4"> 4.4 Defining Political Boundaries</label>
+                        <label><input type="checkbox" value="4.5"> 4.5 The Function of Political Boundaries</label>
+                        <label><input type="checkbox" value="4.6"> 4.6 Internal Boundaries</label>
+                        <label><input type="checkbox" value="4.7"> 4.7 Forms of Governance</label>
+                        <label><input type="checkbox" value="4.8"> 4.8 Defining Devolutionary Factors</label>
+                        <label><input type="checkbox" value="4.9"> 4.9 Challenges to Sovereignty</label>
+                        <label><input type="checkbox" value="4.10"> 4.10 Consequences of Centrifugal and Centripetal Forces</label>
+                    </div>
+                    <div class="unit">
+                        <strong>Unit 5: Agriculture and Rural Land-Use Patterns</strong>
+                        <label><input type="checkbox" value="5.1"> 5.1 Introduction to Agriculture</label>
+                        <label><input type="checkbox" value="5.2"> 5.2 Settlement Patterns and Survey Methods</label>
+                        <label><input type="checkbox" value="5.3"> 5.3 Agricultural Origins and Diffusions</label>
+                        <label><input type="checkbox" value="5.4"> 5.4 The Second Agricultural Revolution</label>
+                        <label><input type="checkbox" value="5.5"> 5.5 The Green Revolution</label>
+                        <label><input type="checkbox" value="5.6"> 5.6 Agricultural Production Regions</label>
+                        <label><input type="checkbox" value="5.7"> 5.7 Spatial Organization of Agriculture</label>
+                        <label><input type="checkbox" value="5.8"> 5.8 Von Thünen Model</label>
+                        <label><input type="checkbox" value="5.9"> 5.9 The Global System of Agriculture</label>
+                        <label><input type="checkbox" value="5.10"> 5.10 Consequences of Agricultural Practices</label>
+                        <label><input type="checkbox" value="5.11"> 5.11 Challenges of Contemporary Agriculture</label>
+                        <label><input type="checkbox" value="5.12"> 5.12 Women in Agriculture</label>
+                        <br>
+                        <strong>Unit 6: Cities and Urban Land-Use Patterns and Processes</strong>
+                        <label><input type="checkbox" value="6.1"> 6.1 The Origin and Influences of Urbanization</label>
+                        <label><input type="checkbox" value="6.2"> 6.2 Cities Across the World</label>
+                        <label><input type="checkbox" value="6.3"> 6.3 Cities and Globalization</label>
+                        <label><input type="checkbox" value="6.4"> 6.4 The Size and Distribution of Cities</label>
+                        <label><input type="checkbox" value="6.5"> 6.5 The Internal Structure of Cities</label>
+                        <label><input type="checkbox" value="6.6"> 6.6 Density and Land Use</label>
+                        <label><input type="checkbox" value="6.7"> 6.7 Infrastructure</label>
+                        <label><input type="checkbox" value="6.8"> 6.8 Urban Sustainability</label>
+                        <label><input type="checkbox" value="6.9"> 6.9 Urban Data</label>
+                        <label><input type="checkbox" value="6.10"> 6.10 Challenges of Urban Changes</label>
+                        <label><input type="checkbox" value="6.11"> 6.11 Challenges of Urban Sustainability</label>
+                        <br>
+                        <strong>Unit 7: Industrial and Economic Development Patterns and Processes</strong>
+                        <label><input type="checkbox" value="7.1"> 7.1 The Industrial Revolution</label>
+                        <label><input type="checkbox" value="7.2"> 7.2 Economic Sectors and Patterns</label>
+                        <label><input type="checkbox" value="7.3"> 7.3 Measures of Development</label>
+                        <label><input type="checkbox" value="7.4"> 7.4 Women and Economic Development</label>
+                        <label><input type="checkbox" value="7.5"> 7.5 Theories of Development</label>
+                        <label><input type="checkbox" value="7.6"> 7.6 Trade and the World Economy</label>
+                        <label><input type="checkbox" value="7.7"> 7.7 Changes as a Result of the World Economy</label>
+                        <label><input type="checkbox" value="7.8"> 7.8 Sustainable Development</label>
+                    </div>
+                `;
+            } else if (course === 'ap_world_hist') {
+                unitContainer.innerHTML = `
+                    <div class="unit">
+                        <strong>Unit 1: The Global Tapestry 1200 to 1450</strong>
+                        <label><input type="checkbox" value="1.1"> 1.1 Developments in East Asia from 1200 to 1450</label>
+                        <label><input type="checkbox" value="1.2"> 1.2 Developments in Dar al-Islam from 1200 to 1450</label>
+                        <label><input type="checkbox" value="1.3"> 1.3 Developments in South and Southeast Asia from 1200 to 1450</label>
+                        <label><input type="checkbox" value="1.4"> 1.4 State Building in the Americas</label>
+                        <label><input type="checkbox" value="1.5"> 1.5 State Building in Africa</label>
+                        <label><input type="checkbox" value="1.6"> 1.6 Developments in Europe from 1200 to 1450</label>
+                        <label><input type="checkbox" value="1.7"> 1.7 Comparison in the Period from 1200 to 1450</label>
+                        <br>
+                        <strong>Unit 2: Networks of Exchange 1200 to 1450</strong>
+                        <label><input type="checkbox" value="2.1"> 2.1 The Silk Roads</label>
+                        <label><input type="checkbox" value="2.2"> 2.2 The Mongol Empire and the Making of the Modern World</label>
+                        <label><input type="checkbox" value="2.3"> 2.3 Exchange in the Indian Ocean</label>
+                        <label><input type="checkbox" value="2.4"> 2.4 Trans-Saharan Trade Routes</label>
+                        <label><input type="checkbox" value="2.5"> 2.5 Cultural Consequences of Connectivity</label>
+                        <label><input type="checkbox" value="2.6"> 2.6 Environmental Consequences of Connectivity</label>
+                        <label><input type="checkbox" value="2.7"> 2.7 Comparison of Economic Exchange</label>
+                        <br>
+                        <strong>Unit 3: Land-Based Empires 1450 to 1750</strong>
+                        <label><input type="checkbox" value="3.1"> 3.1 Empires Expand</label>
+                        <label><input type="checkbox" value="3.2"> 3.2 Empires: Administration</label>
+                        <label><input type="checkbox" value="3.3"> 3.3 Empires: Belief Systems</label>
+                        <label><input type="checkbox" value="3.4"> 3.4 Comparison in Land-Based Empires</label>
+                    </div>
+                    <div class="unit">
+                        <strong>Unit 4: Transoceanic Interconnections 1450 to 1750</strong>
+                        <label><input type="checkbox" value="4.1"> 4.1 Technological Innovations from 1450 to 1750</label>
+                        <label><input type="checkbox" value="4.2"> 4.2 Exploration: Causes and Events from 1450 to 1750</label>
+                        <label><input type="checkbox" value="4.3"> 4.3 Columbian Exchange</label>
+                        <label><input type="checkbox" value="4.4"> 4.4 Maritime Empires Established</label>
+                        <label><input type="checkbox" value="4.5"> 4.5 Maritime Empires Maintained and Developed</label>
+                        <label><input type="checkbox" value="4.6"> 4.6 Internal and External Challenges to State Power from 1450 to 1750</label>
+                        <label><input type="checkbox" value="4.7"> 4.7 Changing Social Hierarchies from 1450 to 1750</label>
+                        <label><input type="checkbox" value="4.8"> 4.8 Continuity and Change from 1450 to 1750</label>
+                        <br>
+                        <strong>Unit 5: Revolutions 1750 to 1900</strong>
+                        <label><input type="checkbox" value="5.1"> 5.1 The Enlightenment</label>
+                        <label><input type="checkbox" value="5.2"> 5.2 Nationalism and Revolutions in the Period from 1750 to 1900</label>
+                        <label><input type="checkbox" value="5.3"> 5.3 Industrial Revolution Begins</label>
+                        <label><input type="checkbox" value="5.4"> 5.4 Industrialization Spreads in the Period from 1750 to 1900</label>
+                        <label><input type="checkbox" value="5.5"> 5.5 Technology of the Industrial Age</label>
+                        <label><input type="checkbox" value="5.6"> 5.6 Industrialization: Government’s Role from 1750 to 1900</label>
+                        <label><input type="checkbox" value="5.7"> 5.7 Economic Developments and Innovations in the Industrial Age</label>
+                        <label><input type="checkbox" value="5.8"> 5.8 Reactions to the Industrial Economy from 1750 to 1900</label>
+                        <label><input type="checkbox" value="5.9"> 5.9 Society and the Industrial Age</label>
+                        <label><input type="checkbox" value="5.10"> 5.10 Continuity and Change in the Industrial Age</label>
+                        <br>
+                        <strong>Unit 6: Consequences of Industrialization 1750 to 1900</strong>
+                        <label><input type="checkbox" value="6.1"> 6.1 Rationales for Imperialism from 1750 to 1900</label>
+                        <label><input type="checkbox" value="6.2"> 6.2 State Expansion from 1750 to 1900</label>
+                        <label><input type="checkbox" value="6.3"> 6.3 Indigenous Responses to State Expansion from 1750 to 1900</label>
+                        <label><input type="checkbox" value="6.4"> 6.4 Global Economic Development from 1750 to 1900</label>
+                        <label><input type="checkbox" value="6.5"> 6.5 Economic Imperialism from 1750 to 1900</label>
+                        <label><input type="checkbox" value="6.6"> 6.6 Causes of Migration in an Interconnected World</label>
+                        <label><input type="checkbox" value="6.7"> 6.7 Effects of Migration</label>
+                        <label><input type="checkbox" value="6.8"> 6.8 Causation in the Imperial Age</label>
+                    </div>
+                    <div class="unit">
+                        <strong>Unit 7: Global Conflict 1900 to the present</strong>
+                        <label><input type="checkbox" value="7.1"> 7.1 Shifting Power After 1900</label>
+                        <label><input type="checkbox" value="7.2"> 7.2 Causes of World War I</label>
+                        <label><input type="checkbox" value="7.3"> 7.3 Conducting World War I</label>
+                        <label><input type="checkbox" value="7.4"> 7.4 The Economy in the Interwar Period</label>
+                        <label><input type="checkbox" value="7.5"> 7.5 Unresolved Tensions After World War I</label>
+                        <label><input type="checkbox" value="7.6"> 7.6 Causes of World War II</label>
+                        <label><input type="checkbox" value="7.7"> 7.7 Conducting World War II</label>
+                        <label><input type="checkbox" value="7.8"> 7.8 Mass Atrocities After 1900</label>
+                        <label><input type="checkbox" value="7.9"> 7.9 Causation in Global Conflict</label>
+                        <br>
+                        <strong>Unit 8: Cold War and Decolonization 1900 to the present</strong>
+                        <label><input type="checkbox" value="8.1"> 8.1 Setting the Stage for the Cold War and Decolonization</label>
+                        <label><input type="checkbox" value="8.2"> 8.2 The Cold War</label>
+                        <label><input type="checkbox" value="8.3"> 8.3 Effects of the Cold War</label>
+                        <label><input type="checkbox" value="8.4"> 8.4 Spread of Communism After 1900</label>
+                        <label><input type="checkbox" value="8.5"> 8.5 Decolonization After 1900</label>
+                        <label><input type="checkbox" value="8.6"> 8.6 Newly Independent States</label>
+                        <label><input type="checkbox" value="8.7"> 8.7 Global Resistance to Established Order After 1900</label>
+                        <label><input type="checkbox" value="8.8"> 8.8 End of the Cold War</label>
+                        <label><input type="checkbox" value="8.9"> 8.9 Causation in the Age of the Cold War and Decolonization</label>
+                        <br>
+                        <strong>Unit 9: Globalization 1900 to the Present</strong>
+                        <label><input type="checkbox" value="9.1"> 9.1 Advances in Technology and Exchange After 1900</label>
+                        <label><input type="checkbox" value="9.2"> 9.2 Technological Advances and Limitations After 1900: Disease</label>
+                        <label><input type="checkbox" value="9.3"> 9.3 Technological Advances: Debates About the Environment After 1900</label>
+                        <label><input type="checkbox" value="9.4"> 9.4 Economics in the Global Age</label>
+                        <label><input type="checkbox" value="9.5"> 9.5 Calls for Reform and Responses After 1900</label>
+                        <label><input type="checkbox" value="9.6"> 9.6 Globalized Culture After 1900</label>
+                        <label><input type="checkbox" value="9.7"> 9.7 Resistance to Globalization After 1900</label>
+                        <label><input type="checkbox" value="9.8"> 9.8 Institutions Developing in a Globalized World</label>
+                        <label><input type="checkbox" value="9.9"> 9.9 Continuity and Change in a Globalized World</label>
+                    </div>
+                `;
             } else {
-                monthsDaysElement.textContent = `${remainingDays} day${remainingDays !== 1 ? 's' : ''}`;
+                unitContainer.innerHTML = ''; // Clear unit content when another course is selected
             }
-            
-            // Show milestones for special numbers
-            if (days % 100 === 0 && days > 0) {
-                milestoneElement.textContent = `🎉 ${days} days milestone reached!`;
-                milestoneElement.classList.remove('hidden');
-            } else if (days % 365 === 0 && days > 0) {
-                const years = Math.floor(days / 365);
-                milestoneElement.textContent = `🎂 ${years} year${years > 1 ? 's' : ''} milestone!`;
-                milestoneElement.classList.remove('hidden');
-            } else {
-                milestoneElement.classList.add('hidden');
-            }
-        }
+        });
 
-        // Update the counter when the page loads
-        updateCounter();
-        
-        // Update the counter at midnight each day
-        const now = new Date();
-        const msUntilMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0, 0) - now;
-        
-        setTimeout(() => {
-            updateCounter();
-            // Then update every 24 hours
-            setInterval(updateCounter, 24 * 60 * 60 * 1000);
-        }, msUntilMidnight);
+        document.getElementById('download-data').addEventListener('click', function() {
+            alert('Downloading shapefile with selected data variables...');
+        });
+*/
     </script>
 </body>
 </html>
